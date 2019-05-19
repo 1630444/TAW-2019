@@ -2,7 +2,9 @@
 <?php
     class EnlacesPaginas {
         public function enlacesPaginasModel ($enlacesModel) {
-            if($enlacesModel == "nosotros" || $enlacesModel == "servicios" || $enlacesModel == "contactenos") {
+            if($enlacesModel == "usuarios" ||
+            $enlacesModel == "productos" || 
+            $enlacesModel == "ventas") {
                 $module = "views/modules/".$enlacesModel.".php";
                } else if ($enlacesModel == "index") {
                    $module = "views/modules/inicio.php";

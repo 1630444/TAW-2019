@@ -1,3 +1,9 @@
+<?php
+    // Se incluye la clase de base de datos, en donde se realia la conexion.
+    require 'database.php';
+    // Variable de sesión en la que se crea la sesion del usuario
+	require 'abre_sesion.php';
+?>
 
 <?php
     //El index muestra la salida de las vistas al usuario, tambien a travez de él enviaremos las distintas acciones que un usuario envíe al controlador
