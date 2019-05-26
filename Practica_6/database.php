@@ -6,7 +6,7 @@
 		private $dbhost="localhost";
 		private $dbuser="alan";
 		private $dbpass="estanque98";
-		private $dbname="practica_5";
+		private $dbname="practica_6";
 
 		//Constrctor de la clase
 		function __construct(){
@@ -32,6 +32,15 @@
 				return true;
 			}
 			return false;
+		}
+
+		// Función que regresa los datos del usuario en sesion
+		public function datos_usuario($usuario){
+			// Se delcara la consulta
+			$stmt = $this->con->prepare("SELECT * FROM usuarios where usuario='$usuario'");
+			// Se carga el resultado de la consulta 
+			$stmt->execute();
+			return $stmt;
 		}
 
 		// Función que regresa el resultset de la condulta de la tabla, osea todas las filas

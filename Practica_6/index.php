@@ -1,8 +1,9 @@
+
 <?php
     // Se incluye la clase de base de datos, en donde se realia la conexion.
     require 'database.php';
     // Variable de sesión en la que se crea la sesion del usuario
-	require 'abre_sesion.php';
+	require 'session/abre_sesion.php';
 ?>
 
 <?php
