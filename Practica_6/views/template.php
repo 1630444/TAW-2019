@@ -42,9 +42,9 @@
 			<a href="index.php" class="logo">Hotel</a>
 			<button type="button" class="button-close fa fa-times js__menu_close"></button>
 			<div class="user">
-				<a href="#" class="avatar"><img src="http://placehold.it/80x80" alt=""><span class="status online"></span></a>
+				<a href="#" class="avatar"><img src="views/multimedia/user-800x800.jpg" alt=""><span class="status online"></span></a>
 				<h5 class="name"><?php echo $_SESSION['apellido_sesion']; ?></h5>
-				<h5 class="position">Administrator</h5>
+				<h5 class="position"><?php echo strtoupper($_SESSION['tipo_sesion']); ?></h5>
 				<!-- /.name -->
 			</div>
 			<!-- /.user -->
@@ -54,7 +54,12 @@
 			<div class="navigation">
 				<h5 class="title">Menú</h5>
 				<!-- /.title -->
-					<?php include "modules/navegacion_admin.php"; ?>
+				<?php
+				if ($_SESSION['tipo_sesion'] == 'admin')
+					include "modules/navegacion_admin.php";
+				else if ($_SESSION['tipo_sesion'] == 'receptionist')
+					include "modules/navegacion_recep.php";
+				?>
 				<!-- /.menu js__accordion -->
 			</div>
 			<!-- /.navigation -->
@@ -66,14 +71,12 @@
 	<div class="fixed-navbar">
 		<div class="pull-left">
 			<button type="button" class="menu-mobile-button glyphicon glyphicon-menu-hamburger js__menu_mobile"></button>
-			<h1 class="page-title">Inicio</h1>
-			<!-- /.page-title -->
 		</div>
 		<!-- /.pull-left -->
 		<div class="pull-right">
 			<div class="ico-item fa fa-arrows-alt js__full_screen"></div>
 			<!-- /.ico-item fa fa-fa-arrows-alt -->
-			<a href="session/cerrar_sesion.php" class="ico-item fa fa-power-off "></a>
+			<a href="session/cerrar_sesion.php" class="ico-item fa fa-power-off"></a>
 		</div>
 		<!-- /.pull-right -->
 	</div>
@@ -83,17 +86,10 @@
 		<div class="main-content">
 			<div class="row small-spacing">
 
-				<!-- Recuadro -->
-				<div class="col-xs-12">
-					<div class="box-content">
-						<h4 class="box-title">Activity</h4>
-						<!--//////////////////// Todo el contenido del recuadro /////////////////////////////-->
-						
-
-					</div>
-					<!-- /.box-content -->
-				</div>
-				<!-- /.col-xs-12 -->
+				<?php
+				$mvc = new MvcController();
+				$mvc->enlacesPaginasController();
+				?>
 
 			</div>
 			<!-- /.row -->
@@ -150,6 +146,13 @@
 	<script src="assets/plugin/moment/moment.js"></script>
 	<script src="assets/plugin/fullcalendar/fullcalendar.min.js"></script>
 	<script src="assets/scripts/fullcalendar.init.js"></script>
+
+	<!-- Data Tables -->
+	<script src="assets/plugin/datatables/media/js/jquery.dataTables.min.js"></script>
+	<script src="assets/plugin/datatables/media/js/dataTables.bootstrap.min.js"></script>
+	<script src="assets/plugin/datatables/extensions/Responsive/js/dataTables.responsive.min.js"></script>
+	<script src="assets/plugin/datatables/extensions/Responsive/js/responsive.bootstrap.min.js"></script>
+	<script src="assets/scripts/datatables.demo.min.js"></script>
 
 	<script src="assets/scripts/main.min.js"></script>
 </body>

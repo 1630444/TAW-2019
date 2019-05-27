@@ -14,7 +14,6 @@
                 $enlacesController = "index";
             }
             $respuesta = EnlacesPaginas::enlacesPaginasModel($enlacesController);
-
             include $respuesta;
         }
     }

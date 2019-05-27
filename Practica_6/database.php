@@ -43,32 +43,92 @@
 			return $stmt;
 		}
 
-		// Función que regresa el resultset de la condulta de la tabla, osea todas las filas
-		public function readUsuarios(){
+		// Función que regresa el resultset de la condulta de la tabla solicitada, osea todas las filas
+		public function readTable($tabla){
 			// Se delcara la consulta
-			$stmt = $this->con->prepare('SELECT * FROM usuarios');
+			$stmt = $this->con->prepare("SELECT * FROM $tabla");
 			// Se carga el resultado de la consulta 
 			$stmt->execute();
 			return $stmt;
 		}
 
-		// Función que regresa el resultset de la condulta de la tabla, osea todas las filas
-		public function readProductos(){
+		// Función que regresa el resultado segun un id indicado
+		public function single($id,$tabla){
 			// Se delcara la consulta
-			$stmt = $this->con->prepare('SELECT * FROM productos');
+			$stmt = $this->con->prepare("SELECT * FROM $tabla where id='$id'");
 			// Se carga el resultado de la consulta 
 			$stmt->execute();
-			return $stmt;
+			while($row = $stmt->fetch(PDO::FETCH_OBJ)){
+				$return = $row;
+			}
+			return $return;
 		}
 
-		// Función que regresa el resultset de la condulta de la tabla, osea todas las filas
-		public function readVentas(){
+		// Funcion que agrega un registro a la tabla
+		public function createCliente($tipo, $nombre, $apellido){
 			// Se delcara la consulta
-			$stmt = $this->con->prepare('SELECT * FROM ventas');
+			$stmt = $this->con->prepare("INSERT INTO `clientes` (tipo, nombre, apellido) VALUES ('$tipo','$nombre','$apellido')");
 			// Se carga el resultado de la consulta 
 			$stmt->execute();
-			return $stmt;
+			if($stmt){
+				return true;
+			}else{
+				return false;
+			}
 		}
+
+		// Funcion que actualiza los datos de un registro
+		public function updateCliente($id, $tipo, $nombre, $apellido){
+			// Se delcara la consulta
+			$stmt = $this->con->prepare("UPDATE clientes SET tipo='$tipo', nombre='$nombre', apellido='$apellido' WHERE id=$id");
+			// Se ejecuta la consulta 
+			$stmt->execute();
+			if($stmt){
+				return true;
+			}else{
+				return false;
+			}
+		}
+
+		// Funcion que agrega un registro a la tabla
+		public function createHabitacion($tipo, $precio, $imagenes){
+			// Se delcara la consulta
+			$stmt = $this->con->prepare("INSERT INTO `habitaciones` (tipo, precio, imagenes) VALUES ('$tipo',$precio,'$imagenes')");
+			// Se carga el resultado de la consulta 
+			$stmt->execute();
+			if($stmt){
+				return true;
+			}else{
+				return false;
+			}
+		}
+
+		// Funcion que actualiza los datos de un registro
+		public function updateHabitacion($id, $tipo, $precio, $imagenes){
+			// Se delcara la consulta
+			$stmt = $this->con->prepare("UPDATE habitaciones SET tipo='$tipo', precio=$precio, imagenes='$imagenes' WHERE id=$id");
+			// Se ejecuta la consulta 
+			$stmt->execute();
+			if($stmt){
+				return true;
+			}else{
+				return false;
+			}
+		}
+
+		public function delete($id,$table){
+			// Se delcara la consulta
+			$stmt = $this->con->prepare("DELETE FROM $table WHERE id=$id");
+			// Se ejecuta la consulta 
+			$stmt->execute();
+			if($stmt){
+				return true;
+			}else{
+				return false;
+			}
+		}
+
+		/*
 
 		// Función que regresa el resultset de la condulta de la tabla, osea todas las filas
 		public function readVentasHoy($fecha){
@@ -192,9 +252,6 @@
 				return false;
 			}
 		}
+
+		*/
 	}
-	
-	
-
-?>	
-

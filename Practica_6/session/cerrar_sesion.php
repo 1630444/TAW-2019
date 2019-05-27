@@ -1,5 +1,5 @@
 <?php
-	require 'session/abre_sesion.php';
+	require 'abre_sesion.php';
 	$_SESSION=array();
 	session_destroy();
 	if(isset($_COOKIE[session_name()])) {

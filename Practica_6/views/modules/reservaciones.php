@@ -1,14 +1,14 @@
-<!--  /////////////// MODULO DE CLIENTES ///////////////// -->
+<!--  /////////////// MODULO DE RESERVACIONES ///////////////// -->
 <!-- Recuadro -->
 <div class="col-xs-12">
     <div class="box-content">
-        <h4 class="box-title" style="margin-left: auto; margin-right: auto; font-size:25px; text-align: center;">Clientes</h4>
+        <h4 class="box-title" style="margin-left: auto; margin-right: auto; font-size:25px; text-align: center;">Reservaciones</h4>
         <hr>
         <!--/// Todo el contenido del recuadro ////-->
 
         <!-- Boton para agregar registro -->
         <div class="pull-right">
-            <a href="index.php?action=cliente_create" class="btn btn-success waves-effect waves-lights"><i class="fa fa-plus"></i> Agregar cliente</a>
+            <a href="index.php?action=cliente_create" class="btn btn-success waves-effect waves-lights"><i class="fa fa-plus"></i> Agregar reservacion</a>
         </div>
         <br>
         <table id="example" class="table table-striped table-bordered display" style="width:100%">
@@ -16,19 +16,21 @@
                 <!-- Se ponen las cabezeras de la tabla -->
                 <tr>
                     <th>Id</th>
-                    <th>Tipo</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
+                    <th>Cliente</th>
+                    <th>Habitacion</th>
+                    <th>Fecha de entrada</th>
+                    <th>Días recervados</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tfoot>
                 <!-- Se ponen el pie de la tabla, las mismcasque lascabezereas -->
                 <tr>
-                    <th>Id</th>
-                    <th>Tipo</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
+                <th>Id</th>
+                    <th>Cliente</th>
+                    <th>Habitacion</th>
+                    <th>Fecha de entrada</th>
+                    <th>Días recervados</th>
                     <th>Acciones</th>
                 </tr>
             </tfoot>
@@ -38,7 +40,7 @@
             // Se instancia la clase de la Base de datos
             $con = new Database();
             // Se llama a la funcion que regresa los registros de la tabla 
-            $listado = $con->readTable('clientes');
+            $listado = $con->readTable('reserva');
             ?>
             <tbody>
                 <?php

@@ -1,83 +1,78 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Productos</title>
-<!--Librerías para estilos y diseño-->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" href="css/custom.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!--  /////////////// MODULO DE HABITACIONES ///////////////// -->
+<!-- Recuadro -->
+<div class="col-xs-12">
+    <div class="box-content">
+    <h4 class="box-title" style="margin-left: auto; margin-right: auto; font-size:25px; text-align: center;">Habitaciones</h4>
+        <hr>
+        <!--/// Todo el contenido del recuadro ////-->
 
-</head>
-<body>
-    <div class="container">
-        <div class="table-wrapper">
-            <div class="table-title">
-                <div class="row">
-                    <div class="col-sm-8"><h2>Listado de  <b>Productos</b></h2></div>
-                    <!-- Boton para agregar registro -->
-                    <div class="col-sm-4">
-                        <a href="p_create.php" class="btn btn-info add-new"><i class="fa fa-plus"></i> Agregar producto</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Tabla de registros -->
-            <table class="table table-bordered">
-                <thead>
+        <!-- Boton para agregar registro -->
+        <div class="pull-right">
+            <a href="index.php?action=habitacion_create" class="btn btn-success waves-effect waves-lights"><i class="fa fa-plus"></i> Agregar habitacion</a>
+        </div>
+        <br>
+        <table id="example" class="table table-striped table-bordered display" style="width:100%">
+            <thead>
+                <!-- Se ponen las cabezeras de la tabla -->
+                <tr>
+                    <th>Id</th>
+                    <th>Tipo</th>
+                    <th>Precio</th>
+                    <th>Imagen</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <!-- Se ponen el pie de la tabla, las mismcasque lascabezereas -->
+                <tr>
+                    <th>Id</th>
+                    <th>Tipo</th>
+                    <th>Precio</th>
+                    <th>Imagen</th>
+                    <th>Acciones</th>
+                </tr>
+            </tfoot>
+
+            <?php
+            // Se incluye la clase de base de datos, en donde se realia la conexion.
+            // Se instancia la clase de la Base de datos
+            $con = new Database();
+            // Se llama a la funcion que regresa los registros de la tabla 
+            $listado = $con->readTable('habitaciones');
+            ?>
+            <tbody>
+                <?php
+                // Se recorre cada uno de los registros que halla regresado la consulta para poder consultar los datos de cada uno y guardarlos en variables individuales.
+                while ($row = $listado->fetch(PDO::FETCH_OBJ)) {
+                    $id = $row->id;
+                    ?>
                     <tr>
-                        <th>Id</th>
-                        <th>Descripcion</th>
-                        <th>Precio</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <?php 
-                // Se incluye la clase de base de datos, en donde se realia la conexion.
-                // Se instancia la clase de la Base de datos
-                $productos = new Database();
-                // Se llama a la funcion que regresa los registros de la tabla 
-				$listado=$productos->readProductos();
-				?>
-                <tbody>
-                <?php 
-                    // Se recorre cada uno de los registros que halla regresado la consulta para poder consultar los datos de cada uno y guardarlos en variables individuales.
-					while($row = $listado->fetch(PDO::FETCH_OBJ)){
-                        $id=$row->id;
-                        $descripcion=$row->descripcion;
-						$precio=$row->precio;
-				?>
-					<tr>
-                    <!-- Se agrega una fila -->
-                        <td><?php echo $id;?></td>
-                        <td><?php echo $descripcion;?></td>
-                        <td><?php echo '$ '.$precio;?></td>
+                        <!-- Se agrega una fila -->
+                        <td><?php echo $id; ?></td>
+                        <td><?php echo strtoupper($row->tipo); ?></td>
+                        <td><?php echo '$ '.$row->precio; ?></td>
+                        <td><img src="<?php echo $row->imagenes; ?>" width="100"></td>
                         <td>
                             <!--Botón para modificar el registro-->
-                            <a class="edit" title="Editar" data-toggle="tooltip" onclick="
-                            if(confirm('¿Seguro que desea modificar este registro?')){
-                                document.location.href = 'p_update.php?id=<?php echo $id; ?>'
-                            }"><i class="material-icons">&#xE254;</i></a>
+                            <a class="btn btn-warning waves-effect waves-light" title="Editar" data-toggle="tooltip" onclick="
+                                            if(confirm('¿Seguro que desea modificar este registro?')){
+                                                document.location.href = 'index.php?action=habitacion_update&id=<?php echo $id; ?>'
+                                            }"><i class="fa fa-edit"></i></a>
                             <!--Botón para eliminar el registro-->
-                            <a class="delete" title="Eliminar" data-toggle="tooltip" onclick="
-                            if(confirm('¿Seguro que desea eliminar este registro?')){
-                                document.location.href = 'p_delete.php?id=<?php echo $id; ?>'
-                            }"><i class="material-icons">&#xE872;</i></a>
+                            <a class="btn btn-danger waves-effect waves-light" title="Eliminar" data-toggle="tooltip" onclick="
+                                            if(confirm('¿Seguro que desea eliminar este registro?')){
+                                                document.location.href = 'index.php?action=delete&id=<?php echo $id; ?>&table=habitaciones'
+                                            }"><i class="fa fa-trash"></i></a>
                         </td>
-                    </tr>	
-				<?php
-                    }
-				?>
-      
-                </tbody>
-                </table>
-        </div>
-    </div>     
-</body>
-</html>                            
+                    </tr>
+                <?php
+            }
+            ?>
+            </tbody>
+        </table>
+
+    </div>
+    <!-- /.box-content -->
+</div>
+<!-- /.col-xs-12 -->

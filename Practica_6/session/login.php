@@ -1,5 +1,5 @@
-usuario: admin
-contraseña: admin
+usuario: admin contraseña: admin<br>
+usuario: recep contraseña: recep
 <?php
 require '../database.php';
 
@@ -15,10 +15,10 @@ if (isset($_POST['aceptar'])) {
 		$_SESSION['usuario'] = $usuario;
 
 		$listado = $con->datos_usuario($usuario);
-		while($row = $listado->fetch(PDO::FETCH_OBJ)){
-			$_SESSION['tipo_sesion']=$row->tipo;
-			$_SESSION['apellido_sesion']=$row->apellido;
-			$_SESSION['nombre_sesion']=$row->nombre;
+		while ($row = $listado->fetch(PDO::FETCH_OBJ)) {
+			$_SESSION['tipo_sesion'] = $row->tipo;
+			$_SESSION['apellido_sesion'] = $row->apellido;
+			$_SESSION['nombre_sesion'] = $row->nombre;
 		}
 		header('Location:../index.php');
 	}
@@ -29,7 +29,6 @@ if (isset($_POST['aceptar'])) {
 <html>
 
 <head>
-	<link rel="stylesheet" type="text/css" href="estilo.css">
 	<title>Acceso</title>
 	<meta charset="utf-8">
 
@@ -41,7 +40,7 @@ if (isset($_POST['aceptar'])) {
 		}
 
 		body {
-			background-image: linear-gradient( lightcyan 10%,white 90%);
+			background-image: linear-gradient(darkorange 10%, white 90%);
 			background-repeat: no-repeat;
 		}
 
@@ -94,21 +93,35 @@ if (isset($_POST['aceptar'])) {
 		nav ul li a:hover {
 			color: purple;
 		}
+
+		.page-title {
+			font-family: serif;
+			margin-left: auto;
+			margin-right: auto;
+			color: white;
+			border: 1px white solid;
+			text-align: center;
+		}
 	</style>
 
 </head>
 
 <body>
 	<br><br>
-		<form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">	
-			<input type="text" class="form_ctrl" name="usuario" placeholder="Nombre de usuario" required>
-			<input type="password" class="form_ctrl" name="contrasena" placeholder="Contraseña" required>
-			<input type="submit" class="btn" name="aceptar" value="Ingresar">
-			<?php
-			if (!$valido && isset($_POST['aceptar'])) {
-				echo '<p>Usuario y/o contraseña no valido</p>';
-			}
-			?>
-		</form>
+	<div class="page-title">
+		<h1>Reservaciones de Hotel</h1>
+	</div>
+	<br><br>
+	<form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+		<input type="text" class="form_ctrl" name="usuario" placeholder="Nombre de usuario" required>
+		<input type="password" class="form_ctrl" name="contrasena" placeholder="Contraseña" required>
+		<input type="submit" class="btn" name="aceptar" value="Ingresar">
+		<?php
+		if (!$valido && isset($_POST['aceptar'])) {
+			echo '<p>Usuario y/o contraseña no valido</p>';
+		}
+		?>
+	</form>
 </body>
+
 </html>
