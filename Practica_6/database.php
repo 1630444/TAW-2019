@@ -5,7 +5,7 @@
 		private $con;
 		private $dbhost="localhost";
 		private $dbuser="alan";
-		private $dbpass="estanque98";
+		private $dbpass="ESTANQUE98ful";
 		private $dbname="practica_6";
 
 		//Constrctor de la clase
