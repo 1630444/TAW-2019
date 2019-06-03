@@ -1,4 +1,4 @@
-<!--  /////////////// MODULO DE EDITAR CLIENTES ///////////////// -->
+<!--  /////////////// MODULO DE EDITAR MATERIA ///////////////// -->
 <!-- Recuadro -->
 <?php
 // Si el url tiene un id se guarda en u avariable
@@ -6,12 +6,12 @@ if (isset($_GET['id'])) {
     $id = intval($_GET['id']);
 } else {
     // si no se regresa al index
-    header("location:index.php?action=clientes");
+    header("location:index.php?action=materia");
 }
 ?>
 <div class="col-xs-12">
     <div class="box-content">
-        <h4 class="box-title" style="margin-left: auto; margin-right: auto; font-size:25px; text-align: center;">Modificar Cliente</h4>
+        <h4 class="box-title" style="margin-left: auto; margin-right: auto; font-size:25px; text-align: center;">Modificar Materia</h4>
         <hr>
         <!--/// Todo el contenido del recuadro ////-->
 
@@ -20,11 +20,10 @@ if (isset($_GET['id'])) {
         $con = new Database();
         if (isset($_POST) && !empty($_POST)) {
             // Se pasan las entradas a las variables correspondientes
-            $tipo = $_POST['tipo'];
             $nombre = $_POST['nombre'];
-            $apellido = $_POST['apellido'];
+            $id_maestro = $_POST['id_maestro'];
             //Se crea el registro en la base de datos
-            $res = $con->updateCliente($id, $tipo, $nombre, $apellido);
+            $res = $con->updateMateria($id, $nombre, $id_maestro);
             if ($res) {
                 $message = "Datos actualizados con éxito";
                 $class = "alert alert-success";
@@ -39,33 +38,41 @@ if (isset($_GET['id'])) {
             </div>
         <?php
     }
-    $datos = $con->single($id, 'clientes');
+    $datos = $con->single($id, 'materias');
     ?>
         <div class="row">
             <form method="post">
+              
+              <!--value="<?php echo $datos->nombre; ?>"-->
+              
                 <!-- Campo ID -->
                 <div class="col-md-6">
                     <label>Id:</label>
                     <input type="number" class='form-control' maxlength="11" value="<?php echo $datos->id; ?>" disabled>
                 </div>
-                <!--Campo Tipo de cliente-->
-                <div class="col-md-6">
-                    <label>Tipo de cliente:</label>
-                    <select name="tipo" id="tipo" class='form-control'>
-                        <option disabled="disabled">Ingresa el tipo</option>
-                        <option value="habituales" <?php if ($datos->tipo == "habituales") echo 'selected'; ?>>Habituales</option>
-                        <option value="esporadicos" <?php if ($datos->tipo == "esporadicos") echo 'selected'; ?>>Esporadicos</option>
-                    </select>
-                </div>
+              
                 <!-- Campo Nombre -->
                 <div class="col-md-6">
                     <label>Nombre:</label>
-                    <input type="text" name="nombre" id="nombre" class='form-control' maxlength="45" required value="<?php echo $datos->nombre; ?>">
+                    <input type="text" name="nombre" id="nombre" class='form-control' maxlength="30" value="<?php echo $datos->nombre; ?>" required>
                 </div>
-                <!-- Campo Apellido -->
+              
+              <!-- Campo Maestro -->
                 <div class="col-md-6">
-                    <label>Apellido:</label>
-                    <input type="text" name="apellido" id="apellido" class='form-control' maxlength="45" required value="<?php echo $datos->apellido; ?>">
+                    <label>Maestro:</label>
+                    <select name="id_maestro" id="id_maestro" class='form-control' required>
+                      <option value="" selected disabled hidden>Seleccione un maestro</option>
+                      <?php
+                      // Se consiguen todos los registros para llenar el select
+                      $listado = $con->readTable('maestros');
+                      while ($row = $listado->fetch(PDO::FETCH_OBJ)) {
+                        echo "<option value=\"$row->id\"";
+                        if ($datos->id_maestro==$row->id)
+                          echo ' selected ';
+                        echo ">$row->apellido $row->nombre</option>";
+                      }
+                      ?>
+                    </select>
                 </div>
 
                 <div class="col-md-12 pull-right">

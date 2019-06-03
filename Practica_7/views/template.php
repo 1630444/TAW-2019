@@ -8,7 +8,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 
-	<title>Reservacion de Hotel</title>
+	<title>Gestor de grupos</title>
 
 	<!-- Main Styles -->
 	<link rel="stylesheet" href="assets/styles/style.min.css">
@@ -39,7 +39,7 @@
 <body>
 	<div class="main-menu">
 		<header class="header">
-			<a href="index.php" class="logo">Hotel</a>
+			<a href="index.php" class="logo">Gestor de Grupos</a>
 			<button type="button" class="button-close fa fa-times js__menu_close"></button>
 			<div class="user">
 				<a href="#" class="avatar"><img src="views/multimedia/user-800x800.jpg" alt=""><span class="status online"></span></a>
@@ -97,7 +97,7 @@
 				<div class="pull-left">
 					<ul class="list-inline">
 						<li>
-							Práctica 06<br>
+							Práctica 07<br>
 							Tecnología y Aplicaciones Web<br>
 							Universidad Politécnica de Victoria
 						</li>

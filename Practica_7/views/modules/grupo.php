@@ -1,15 +1,14 @@
-
-<!--  /////////////// MODULO DE HABITACIONES ///////////////// -->
+<!--  /////////////// MODULO DE GRUPO ///////////////// -->
 <!-- Recuadro -->
 <div class="col-xs-12">
     <div class="box-content">
-    <h4 class="box-title" style="margin-left: auto; margin-right: auto; font-size:25px; text-align: center;">Habitaciones</h4>
+        <h4 class="box-title" style="margin-left: auto; margin-right: auto; font-size:25px; text-align: center;">Grupos</h4>
         <hr>
         <!--/// Todo el contenido del recuadro ////-->
 
         <!-- Boton para agregar registro -->
         <div class="pull-right">
-            <a href="index.php?action=habitacion_create" class="btn btn-success waves-effect waves-lights"><i class="fa fa-plus"></i> Agregar habitacion</a>
+            <a href="index.php?action=materia_create" class="btn btn-success waves-effect waves-lights"><i class="fa fa-plus"></i> Agregar grupo</a>
         </div>
         <br>
         <table id="example" class="table table-striped table-bordered display" style="width:100%">
@@ -17,9 +16,8 @@
                 <!-- Se ponen las cabezeras de la tabla -->
                 <tr>
                     <th>Id</th>
-                    <th>Tipo</th>
-                    <th>Precio</th>
-                    <th>Imagen</th>
+                    <th>Clave</th>
+                    <th>Carrera</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -27,9 +25,8 @@
                 <!-- Se ponen el pie de la tabla, las mismcasque lascabezereas -->
                 <tr>
                     <th>Id</th>
-                    <th>Tipo</th>
-                    <th>Precio</th>
-                    <th>Imagen</th>
+                    <th>Clave</th>
+                    <th>Carrera</th>
                     <th>Acciones</th>
                 </tr>
             </tfoot>
@@ -39,7 +36,7 @@
             // Se instancia la clase de la Base de datos
             $con = new Database();
             // Se llama a la funcion que regresa los registros de la tabla 
-            $listado = $con->readTable('habitaciones');
+            $listado = $con->readTable('grupos');
             ?>
             <tbody>
                 <?php
@@ -50,19 +47,19 @@
                     <tr>
                         <!-- Se agrega una fila -->
                         <td><?php echo $id; ?></td>
-                        <td><?php echo strtoupper($row->tipo); ?></td>
-                        <td><?php echo '$ '.$row->precio; ?></td>
-                        <td><img src="<?php echo $row->imagenes; ?>" width="100"></td>
-                        <td>
+                        <td><?php echo $row->clave; ?></td>
+                        <td><?php echo $row->carrera; ?></td>
+                        <td
+                            
                             <!--Botón para modificar el registro-->
                             <a class="btn btn-warning waves-effect waves-light" title="Editar" data-toggle="tooltip" onclick="
                                             if(confirm('¿Seguro que desea modificar este registro?')){
-                                                document.location.href = 'index.php?action=habitacion_update&id=<?php echo $id; ?>'
+                                                document.location.href = 'index.php?action=grupo_update&id=<?php echo $id; ?>'
                                             }"><i class="fa fa-edit"></i></a>
                             <!--Botón para eliminar el registro-->
                             <a class="btn btn-danger waves-effect waves-light" title="Eliminar" data-toggle="tooltip" onclick="
                                             if(confirm('¿Seguro que desea eliminar este registro?')){
-                                                document.location.href = 'index.php?action=delete&id=<?php echo $id; ?>&table=habitaciones'
+                                                document.location.href = 'index.php?action=delete&id=<?php echo $id; ?>&table=grupos'
                                             }"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>

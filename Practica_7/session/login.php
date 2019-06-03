@@ -12,6 +12,14 @@ if (isset($_POST['aceptar'])) {
 	} else {
 		session_start();
 		$_SESSION['usuario'] = $usuario;
+    
+    $listado = $con->datos_usuario($usuario);
+		while ($row = $listado->fetch(PDO::FETCH_OBJ)) {
+			$_SESSION['tipo_sesion'] = $row->tipo;
+			//$_SESSION['apellido_sesion'] = $row->apellido;
+			//$_SESSION['nombre_sesion'] = $row->nombre;
+		}
+    
 		header('Location:../index.php');
 	}
 }
@@ -33,7 +41,7 @@ if (isset($_POST['aceptar'])) {
 		}
 
 		body {
-			background-image: linear-gradient(burlywood 10%, white 90%);
+			background-image: linear-gradient(rosybrown 10%, white 90%);
 			background-repeat: no-repeat;
 		}
 
@@ -102,7 +110,7 @@ if (isset($_POST['aceptar'])) {
 <body>
 	<br><br>
 	<div class="page-title">
-		<h1>Reservaciones de Hotel</h1>
+		<h1>Gestor de Grupos</h1>
 	</div>
 	<br><br>
 	<form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">

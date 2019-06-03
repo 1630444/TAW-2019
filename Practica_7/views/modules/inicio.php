@@ -6,6 +6,7 @@
         <h4 class="box-title">Inicio</h4>
         <!--/// Todo el contenido del recuadro ///-->
 
+        <h5>Bienvenido al Gestor de grupos, seleccione un apartado del menú para empezar a trabajar.</h5>
 
     </div>
     <!-- /.box-content -->

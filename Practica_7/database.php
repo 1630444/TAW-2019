@@ -25,7 +25,7 @@
 		// Función que regresa el resultado segun un id de la talba de ususario para validar el acceso a la sesion
 		public function valida_usuario($usuario,$contrasena){
 			// Se delcara la consulta
-			$stmt = $this->con->prepare("SELECT * FROM usuarios where usuario='$usuario' AND contrasena='$contrasena'");
+			$stmt = $this->con->prepare("SELECT * FROM usuarios where usuario='$usuario' AND contrasena=MD5('$contrasena')");
 			// Se carga el resultado de la consulta 
 			$stmt->execute();
 			while($row = $stmt->fetch(PDO::FETCH_OBJ)){
@@ -38,6 +38,15 @@
 		public function datos_usuario($usuario){
 			// Se delcara la consulta
 			$stmt = $this->con->prepare("SELECT * FROM usuarios where usuario='$usuario'");
+			// Se carga el resultado de la consulta 
+			$stmt->execute();
+			return $stmt;
+		}
+    
+    // Función que regresa el resultset de la condulta personalizada
+		public function readSpecial($consulta){
+			// Se delcara la consulta
+			$stmt = $this->con->prepare($consulta);
 			// Se carga el resultado de la consulta 
 			$stmt->execute();
 			return $stmt;
@@ -63,11 +72,23 @@
 			}
 			return $return;
 		}
+    
+    // Función que regresa el resultado segun un id indicado pero solo un dato
+		public function singleData($id,$tabla,$dato){
+			// Se delcara la consulta
+			$stmt = $this->con->prepare("SELECT $dato FROM $tabla where id='$id'");
+			// Se carga el resultado de la consulta 
+			$stmt->execute();
+			while($row = $stmt->fetch(PDO::FETCH_OBJ)){
+				$return = $row->$dato;
+			}
+			return $return;
+		}
 
 		// Funcion que agrega un registro a la tabla
-		public function createCliente($tipo, $nombre, $apellido){
+		public function createAlumno($nombre, $apellido, $fecha_nac, $matricula, $email, $tel){
 			// Se delcara la consulta
-			$stmt = $this->con->prepare("INSERT INTO `clientes` (tipo, nombre, apellido) VALUES ('$tipo','$nombre','$apellido')");
+			$stmt = $this->con->prepare("INSERT INTO `alumnos` (nombre, apellido, fecha_nac, matricula, email, tel) VALUES ('$nombre', '$apellido', '$fecha_nac', '$matricula', '$email', '$tel')");
 			// Se carga el resultado de la consulta 
 			$stmt->execute();
 			if($stmt){
@@ -78,9 +99,9 @@
 		}
 
 		// Funcion que actualiza los datos de un registro
-		public function updateCliente($id, $tipo, $nombre, $apellido){
+		public function updateAlumno($id, $nombre, $apellido, $fecha_nac, $matricula, $email, $tel){
 			// Se delcara la consulta
-			$stmt = $this->con->prepare("UPDATE clientes SET tipo='$tipo', nombre='$nombre', apellido='$apellido' WHERE id=$id");
+			$stmt = $this->con->prepare("UPDATE `alumnos` SET nombre='$nombre', apellido='$apellido', fecha_nac='$fecha_nac', matricula='$matricula', email='$email', tel='$tel'  WHERE id=$id");
 			// Se ejecuta la consulta 
 			$stmt->execute();
 			if($stmt){
@@ -89,11 +110,11 @@
 				return false;
 			}
 		}
-
-		// Funcion que agrega un registro a la tabla
-		public function createHabitacion($tipo, $precio, $imagenes){
+    
+    // Funcion que agrega un registro a la tabla
+		public function createMaestro($nombre, $apellido, $fecha_nac, $email, $tel, $num_empleado, $grado_academico, $tipo_contrato){
 			// Se delcara la consulta
-			$stmt = $this->con->prepare("INSERT INTO `habitaciones` (tipo, precio, imagenes) VALUES ('$tipo',$precio,'$imagenes')");
+			$stmt = $this->con->prepare("INSERT INTO `maestros` (nombre, apellido, fecha_nac, email, tel, num_empleado, grado_academico, tipo_contrato) VALUES ('$nombre', '$apellido', '$fecha_nac', '$email', '$tel', $num_empleado, '$grado_academico', '$tipo_contrato')");
 			// Se carga el resultado de la consulta 
 			$stmt->execute();
 			if($stmt){
@@ -104,9 +125,9 @@
 		}
 
 		// Funcion que actualiza los datos de un registro
-		public function updateHabitacion($id, $tipo, $precio, $imagenes){
+		public function updateMaestro($id, $nombre, $apellido, $fecha_nac, $email, $tel, $num_empleado, $grado_academico, $tipo_contrato){
 			// Se delcara la consulta
-			$stmt = $this->con->prepare("UPDATE habitaciones SET tipo='$tipo', precio=$precio, imagenes='$imagenes' WHERE id=$id");
+			$stmt = $this->con->prepare("UPDATE `maestros` SET nombre='$nombre', apellido='$apellido', fecha_nac='$fecha_nac', email='$email', tel='$tel', num_empleado=$num_empleado, grado_academico='$grado_academico', tipo_contrato='$tipo_contrato'  WHERE id=$id");
 			// Se ejecuta la consulta 
 			$stmt->execute();
 			if($stmt){
@@ -115,10 +136,49 @@
 				return false;
 			}
 		}
+    
+    // Funcion que agrega un registro a la tabla
+		public function createMateria($nombre,$id_maestro){
+			// Se delcara la consulta
+			$stmt = $this->con->prepare("INSERT INTO `materias` (nombre,id_maestro) VALUES ('$nombre',$id_maestro)");
+			// Se carga el resultado de la consulta 
+			$stmt->execute();
+			if($stmt){
+				return true;
+			}else{
+				return false;
+			}
+		}
 
+		// Funcion que actualiza los datos de un registro
+		public function updateMateria($id, $nombre,$id_maestro){
+			// Se delcara la consulta
+			$stmt = $this->con->prepare("UPDATE `materias` SET nombre='$nombre', id_maestro=$id_maestro WHERE id=$id");
+			// Se ejecuta la consulta 
+			$stmt->execute();
+			if($stmt){
+				return true;
+			}else{
+				return false;
+			}
+		}
+    
+    // Funcion que agrega un registro a la tabla
+		public function createAluMat($id_materia, $id_alumno){
+			// Se delcara la consulta
+			$stmt = $this->con->prepare("INSERT INTO `alumnos-materias` (id_materia,id_alumno) VALUES ('$id_materia',$id_alumno)");
+			// Se carga el resultado de la consulta 
+			$stmt->execute();
+			if($stmt){
+				return true;
+			}else{
+				return false;
+			}
+		}
+    
 		public function delete($id,$table){
 			// Se delcara la consulta
-			$stmt = $this->con->prepare("DELETE FROM $table WHERE id=$id");
+			$stmt = $this->con->prepare("DELETE FROM `$table` WHERE id=$id");
 			// Se ejecuta la consulta 
 			$stmt->execute();
 			if($stmt){
@@ -128,130 +188,4 @@
 			}
 		}
 
-		/*
-
-		// Función que regresa el resultset de la condulta de la tabla, osea todas las filas
-		public function readVentasHoy($fecha){
-			// Se delcara la consulta
-			$stmt = $this->con->prepare("SELECT * FROM ventas WHERE fecha = '$fecha'");
-			// Se carga el resultado de la consulta 
-			$stmt->execute();
-			return $stmt;
-		}
-
-		// Función que regresa el resultset de la condulta de la tabla, osea todas las filas
-		public function costoProducto($id_producto){
-			// Se delcara la consulta
-			$stmt = $this->con->prepare("SELECT * FROM productos WHERE id = $id_producto");
-			// Se carga el resultado de la consulta 
-			$stmt->execute();
-			while($row = $stmt->fetch(PDO::FETCH_OBJ)){
-				return $row->precio;
-			}
-			
-		}
-
-		
-		// Función que regresa el resultset de la condulta de la tabla, osea todas las filas
-		public function descripcionProducto($id_producto){
-			// Se delcara la consulta
-			$stmt = $this->con->prepare("SELECT * FROM productos WHERE id = $id_producto");
-			// Se carga el resultado de la consulta 
-			$stmt->execute();
-			while($row = $stmt->fetch(PDO::FETCH_OBJ)){
-				return $row->descripcion;
-			}
-			
-		}
-		
-		// Funcion que agrega un registro a la tabla
-		public function createUsuario($usuario, $contrasena, $nombre){
-			// Se delcara la consulta
-			$stmt = $this->con->prepare("INSERT INTO `usuarios` (usuario, contrasena, nombre) VALUES ('$usuario','$contrasena','$nombre')");
-			// Se carga el resultado de la consulta 
-			$stmt->execute();
-			if($stmt){
-				return true;
-			}else{
-				return false;
-			}
-		}
-
-		// Funcion que agrega un registro a la tabla
-		public function createProducto($descripcion, $precio){
-			// Se delcara la consulta
-			$stmt = $this->con->prepare("INSERT INTO `productos` (descripcion, precio) VALUES ('$descripcion','$precio')");
-			// Se carga el resultado de la consulta 
-			$stmt->execute();
-			if($stmt){
-				return true;
-			}else{
-				return false;
-			}
-		}
-
-		// Funcion que agrega un registro a la tabla
-		public function createVenta($producto_id, $cantidad, $fecha){
-			// Se delcara la consulta
-			$stmt = $this->con->prepare("INSERT INTO `ventas` (producto_id, cantidad, fecha) VALUES ('$producto_id','$cantidad','$fecha')");
-			// Se carga el resultado de la consulta 
-			$stmt->execute();
-			if($stmt){
-				return true;
-			}else{
-				return false;
-			}
-		}
-		
-		// Función que regresa el resultado segun un id indicado
-		public function single($id,$tabla){
-			// Se delcara la consulta
-			$stmt = $this->con->prepare("SELECT * FROM $tabla where id='$id'");
-			// Se carga el resultado de la consulta 
-			$stmt->execute();
-			while($row = $stmt->fetch(PDO::FETCH_OBJ)){
-				$return = $row;
-			}
-			return $return;
-		}
-
-		// Función que regresa la fecha actual
-		public function date(){
-			// Se delcara la consulta
-			$stmt = $this->con->prepare('SELECT CURDATE() fecha;');
-			// Se carga el resultado de la consulta 
-			$stmt->execute();
-			while($row = $stmt->fetch(PDO::FETCH_OBJ)){
-				$return=$row->fecha;
-			}
-			return $return;
-		}
-
-		// Funcion que actualiza los datos de un registro
-		public function updateUsuario($id, $usuario, $contrasena, $nombre){
-			// Se delcara la consulta
-			echo 'se prepara la consulta';
-			$stmt = $this->con->prepare("UPDATE usuarios SET nombre='$nombre', usuario='$usuario', contrasena='$contrasena' WHERE id=$id");
-			// Se ejecuta la consulta 
-			$stmt->execute();
-			if($stmt){
-				return true;
-			}else{
-				return false;
-			}
-		}
-
-		public function delete($id){
-			// Se delcara la consulta
-			$stmt = $this->con->prepare("DELETE FROM basquetbolistas WHERE id=$id");
-			// Se ejecuta la consulta 
-			$stmt->execute();
-			if($stmt){
-				return true;
-			}else{
-				return false;
-			}
-		}
-
-		*/
 	}

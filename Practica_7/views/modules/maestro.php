@@ -1,14 +1,14 @@
-<!--  /////////////// MODULO DE CLIENTES ///////////////// -->
+<!--  /////////////// MODULO DE MAESTRO ///////////////// -->
 <!-- Recuadro -->
 <div class="col-xs-12">
     <div class="box-content">
-        <h4 class="box-title" style="margin-left: auto; margin-right: auto; font-size:25px; text-align: center;">Clientes</h4>
+        <h4 class="box-title" style="margin-left: auto; margin-right: auto; font-size:25px; text-align: center;">Maestros</h4>
         <hr>
         <!--/// Todo el contenido del recuadro ////-->
 
         <!-- Boton para agregar registro -->
         <div class="pull-right">
-            <a href="index.php?action=cliente_create" class="btn btn-success waves-effect waves-lights"><i class="fa fa-plus"></i> Agregar cliente</a>
+            <a href="index.php?action=maestro_create" class="btn btn-success waves-effect waves-lights"><i class="fa fa-plus"></i> Agregar maestro</a>
         </div>
         <br>
         <table id="example" class="table table-striped table-bordered display" style="width:100%">
@@ -16,9 +16,14 @@
                 <!-- Se ponen las cabezeras de la tabla -->
                 <tr>
                     <th>Id</th>
-                    <th>Tipo</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
+                    <th>Fecha de nacimiento</th>
+                    <th>E-mail</th>
+                    <th>Telefono</th>
+                    <th>Num empleado</th>
+                    <th>Grado academico</th>
+                    <th>Tipo de contrato</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -26,9 +31,14 @@
                 <!-- Se ponen el pie de la tabla, las mismcasque lascabezereas -->
                 <tr>
                     <th>Id</th>
-                    <th>Tipo</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
+                    <th>Fecha de nacimiento</th>
+                    <th>E-mail</th>
+                    <th>Telefono</th>
+                    <th>Num empleado</th>
+                    <th>Grado academico</th>
+                    <th>Tipo de contrato</th>
                     <th>Acciones</th>
                 </tr>
             </tfoot>
@@ -38,7 +48,7 @@
             // Se instancia la clase de la Base de datos
             $con = new Database();
             // Se llama a la funcion que regresa los registros de la tabla 
-            $listado = $con->readTable('clientes');
+            $listado = $con->readTable('maestros');
             ?>
             <tbody>
                 <?php
@@ -49,19 +59,24 @@
                     <tr>
                         <!-- Se agrega una fila -->
                         <td><?php echo $id; ?></td>
-                        <td><?php echo strtoupper($row->tipo); ?></td>
                         <td><?php echo $row->nombre; ?></td>
                         <td><?php echo $row->apellido; ?></td>
+                        <td><?php echo $row->fecha_nac; ?></td>
+                        <td><?php echo $row->email; ?></td>
+                        <td><?php echo $row->tel; ?></td>
+                        <td><?php echo $row->num_empleado; ?></td>
+                        <td><?php echo $row->grado_academico; ?></td>
+                        <td><?php echo $row->tipo_contrato; ?></td>
                         <td>
                             <!--Botón para modificar el registro-->
                             <a class="btn btn-warning waves-effect waves-light" title="Editar" data-toggle="tooltip" onclick="
                                             if(confirm('¿Seguro que desea modificar este registro?')){
-                                                document.location.href = 'index.php?action=cliente_update&id=<?php echo $id; ?>'
+                                                document.location.href = 'index.php?action=maestro_update&id=<?php echo $id; ?>'
                                             }"><i class="fa fa-edit"></i></a>
                             <!--Botón para eliminar el registro-->
                             <a class="btn btn-danger waves-effect waves-light" title="Eliminar" data-toggle="tooltip" onclick="
                                             if(confirm('¿Seguro que desea eliminar este registro?')){
-                                                document.location.href = 'index.php?action=delete&id=<?php echo $id; ?>&table=clientes'
+                                                document.location.href = 'index.php?action=delete&id=<?php echo $id; ?>&table=maestros'
                                             }"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>

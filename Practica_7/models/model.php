@@ -5,13 +5,19 @@ class EnlacesPaginas
     public function enlacesPaginasModel($enlacesModel)
     {
         if (
-            $enlacesModel == "reservaciones" ||
-            $enlacesModel == "habitaciones" ||
-            $enlacesModel == "habitacion_create" ||
-            $enlacesModel == "habitacion_update" ||
-            $enlacesModel == "clientes" ||
-            $enlacesModel == "cliente_create" ||
-            $enlacesModel == "cliente_update" ||
+            $enlacesModel == "grupo" ||
+            $enlacesModel == "grupo_create" ||
+            $enlacesModel == "grupo_update" ||
+            $enlacesModel == "materia" ||
+            $enlacesModel == "materia_create" ||
+            $enlacesModel == "materia_update" ||
+            $enlacesModel == "materia_carga" ||
+            $enlacesModel == "maestro" ||
+            $enlacesModel == "maestro_create" ||
+            $enlacesModel == "maestro_update" ||
+            $enlacesModel == "alumno" ||
+            $enlacesModel == "alumno_create" ||
+            $enlacesModel == "alumno_update" ||
             $enlacesModel == "delete" 
         ) {
             $module = "views/modules/" . $enlacesModel . ".php";
