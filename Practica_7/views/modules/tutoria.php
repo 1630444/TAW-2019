@@ -1,14 +1,14 @@
-<!--  /////////////// MODULO DE GRUPO ///////////////// -->
+<!--  /////////////// MODULO DE TUTORIAS ///////////////// -->
 <!-- Recuadro -->
 <div class="col-xs-12">
     <div class="box-content">
-        <h4 class="box-title" style="margin-left: auto; margin-right: auto; font-size:25px; text-align: center;">Grupos</h4>
+        <h4 class="box-title" style="margin-left: auto; margin-right: auto; font-size:25px; text-align: center;">Materias</h4>
         <hr>
         <!--/// Todo el contenido del recuadro ////-->
 
         <!-- Boton para agregar registro -->
         <div class="pull-right">
-            <a href="index.php?action=grupo_create" class="btn btn-success waves-effect waves-lights"><i class="fa fa-plus"></i> Agregar grupo</a>
+            <a href="index.php?action=materia_create" class="btn btn-success waves-effect waves-lights"><i class="fa fa-plus"></i> Agregar materia</a>
         </div>
         <br>
         <table id="example" class="table table-striped table-bordered display" style="width:100%">
@@ -16,8 +16,8 @@
                 <!-- Se ponen las cabezeras de la tabla -->
                 <tr>
                     <th>Id</th>
-                    <th>Clave</th>
-                    <th>Carrera</th>
+                    <th>Nombre</th>
+                    <th>Maestro asignado</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -25,8 +25,8 @@
                 <!-- Se ponen el pie de la tabla, las mismcasque lascabezereas -->
                 <tr>
                     <th>Id</th>
-                    <th>Clave</th>
-                    <th>Carrera</th>
+                    <th>Nombre</th>
+                    <th>Maestro asignado</th>
                     <th>Acciones</th>
                 </tr>
             </tfoot>
@@ -36,7 +36,7 @@
             // Se instancia la clase de la Base de datos
             $con = new Database();
             // Se llama a la funcion que regresa los registros de la tabla 
-            $listado = $con->readTable('grupos');
+            $listado = $con->readTable('materias');
             ?>
             <tbody>
                 <?php
@@ -47,22 +47,22 @@
                     <tr>
                         <!-- Se agrega una fila -->
                         <td><?php echo $id; ?></td>
-                        <td><?php echo $row->clave; ?></td>
-                        <td><?php echo $row->carrera; ?></td>
+                        <td><?php echo $row->nombre; ?></td>
+                        <td><?php echo $con->singleData($row->id_maestro,'maestros','apellido'); ?></td>
                         <td
                             <!--Botón para ira la carga de materias-->
                             <a class="btn btn-info waves-effect waves-light" title="Carga" data-toggle="tooltip" onclick="
-                                            document.location.href = 'index.php?action=materias-grupo&id=<?php echo $id; ?>'
+                                            document.location.href = 'index.php?action=alumnos-materia&id=<?php echo $id; ?>'
                                             "><i class="fa fa-users"></i></a>
                             <!--Botón para modificar el registro-->
                             <a class="btn btn-warning waves-effect waves-light" title="Editar" data-toggle="tooltip" onclick="
                                             if(confirm('¿Seguro que desea modificar este registro?')){
-                                                document.location.href = 'index.php?action=grupo_update&id=<?php echo $id; ?>'
+                                                document.location.href = 'index.php?action=materia_update&id=<?php echo $id; ?>'
                                             }"><i class="fa fa-edit"></i></a>
                             <!--Botón para eliminar el registro-->
                             <a class="btn btn-danger waves-effect waves-light" title="Eliminar" data-toggle="tooltip" onclick="
                                             if(confirm('¿Seguro que desea eliminar este registro?')){
-                                                document.location.href = 'index.php?action=delete&id=<?php echo $id; ?>&table=grupos'
+                                                document.location.href = 'index.php?action=delete&id=<?php echo $id; ?>&table=materias'
                                             }"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>

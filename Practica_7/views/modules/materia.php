@@ -52,7 +52,7 @@
                         <td
                             <!--Botón para ira la carga de materias-->
                             <a class="btn btn-info waves-effect waves-light" title="Carga" data-toggle="tooltip" onclick="
-                                            document.location.href = 'index.php?action=materia_carga&id=<?php echo $id; ?>'
+                                            document.location.href = 'index.php?action=alumnos-materia&id=<?php echo $id; ?>'
                                             "><i class="fa fa-users"></i></a>
                             <!--Botón para modificar el registro-->
                             <a class="btn btn-warning waves-effect waves-light" title="Editar" data-toggle="tooltip" onclick="

@@ -8,16 +8,21 @@ class EnlacesPaginas
             $enlacesModel == "grupo" ||
             $enlacesModel == "grupo_create" ||
             $enlacesModel == "grupo_update" ||
+            $enlacesModel == "materias-grupo" ||
             $enlacesModel == "materia" ||
             $enlacesModel == "materia_create" ||
             $enlacesModel == "materia_update" ||
-            $enlacesModel == "materia_carga" ||
+            $enlacesModel == "alumnos-materia" ||
             $enlacesModel == "maestro" ||
             $enlacesModel == "maestro_create" ||
             $enlacesModel == "maestro_update" ||
             $enlacesModel == "alumno" ||
             $enlacesModel == "alumno_create" ||
             $enlacesModel == "alumno_update" ||
+            $enlacesModel == "tutoria" ||
+            $enlacesModel == "tutoria_create" ||
+            $enlacesModel == "tutoria_update" ||
+            $enlacesModel == "alumnos-tutoria" ||
             $enlacesModel == "delete" 
         ) {
             $module = "views/modules/" . $enlacesModel . ".php";

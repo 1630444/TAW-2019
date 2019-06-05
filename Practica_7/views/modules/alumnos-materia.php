@@ -122,7 +122,7 @@ if (isset($_GET['id'])) {
                 <?php
                 // Se recorre cada uno de los registros que halla regresado la consulta para poder consultar los datos de cada uno y guardarlos en variables individuales.
                 while ($row = $listado->fetch(PDO::FETCH_OBJ)) {
-                    $id = $row->id;
+          
                     ?>
                     <tr>
                         <!-- Se agrega una fila -->
@@ -138,7 +138,7 @@ if (isset($_GET['id'])) {
                             <!--Botón para eliminar el registro-->
                             <a class="btn btn-danger waves-effect waves-light" title="Eliminar" data-toggle="tooltip" onclick="
                                             if(confirm('¿Seguro que desea eliminar este registro?')){
-                                                document.location.href = 'index.php?action=delete&id=<?php echo $r->id; ?>&table=alumnos-materias'
+                                                document.location.href = 'index.php?action=delete&id=<?php echo $r->id; ?>&table=alumnos-materias&id2=<?php echo $id; ?>'
                                             }"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>

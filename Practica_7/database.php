@@ -76,7 +76,7 @@
     // Función que regresa el resultado segun un id indicado pero solo un dato
 		public function singleData($id,$tabla,$dato){
 			// Se delcara la consulta
-			$stmt = $this->con->prepare("SELECT $dato FROM $tabla where id='$id'");
+			$stmt = $this->con->prepare("SELECT $dato FROM $tabla where id=$id");
 			// Se carga el resultado de la consulta 
 			$stmt->execute();
 			while($row = $stmt->fetch(PDO::FETCH_OBJ)){
@@ -164,9 +164,48 @@
 		}
     
     // Funcion que agrega un registro a la tabla
+		public function createGrupo($clave,$carrera){
+			// Se delcara la consulta
+			$stmt = $this->con->prepare("INSERT INTO `grupos` (clave,carrera) VALUES ('$clave','$carrera')");
+			// Se carga el resultado de la consulta 
+			$stmt->execute();
+			if($stmt){
+				return true;
+			}else{
+				return false;
+			}
+		}
+
+		// Funcion que actualiza los datos de un registro
+		public function updateGrupo($id, $clave,$carrera){
+			// Se delcara la consulta
+			$stmt = $this->con->prepare("UPDATE `grupos` SET clave='$clave', carrera='$carrera' WHERE id=$id");
+			// Se ejecuta la consulta 
+			$stmt->execute();
+			if($stmt){
+				return true;
+			}else{
+				return false;
+			}
+		}
+    
+    // Funcion que agrega un registro a la tabla
 		public function createAluMat($id_materia, $id_alumno){
 			// Se delcara la consulta
-			$stmt = $this->con->prepare("INSERT INTO `alumnos-materias` (id_materia,id_alumno) VALUES ('$id_materia',$id_alumno)");
+			$stmt = $this->con->prepare("INSERT INTO `alumnos-materias` (id_materia,id_alumno) VALUES ($id_materia,$id_alumno)");
+			// Se carga el resultado de la consulta 
+			$stmt->execute();
+			if($stmt){
+				return true;
+			}else{
+				return false;
+			}
+		}
+    
+    // Funcion que agrega un registro a la tabla
+		public function createMatGru($id_materia, $id_grupo){
+			// Se delcara la consulta
+			$stmt = $this->con->prepare("INSERT INTO `materias-grupos` (id_materia,id_grupo) VALUES ($id_materia,$id_grupo)");
 			// Se carga el resultado de la consulta 
 			$stmt->execute();
 			if($stmt){

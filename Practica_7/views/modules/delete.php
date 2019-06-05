@@ -1,15 +1,27 @@
 
 <?php 
-if (isset($_GET['id'])){
-	$con = new Database();
+$con = new Database();
+$id='';
+$table='';
+$id2='';
+if (isset($_GET['id']))
     $id=intval($_GET['id']);
+
+if (isset($_GET['table']))
     $table=$_GET['table'];
+
+if (isset($_GET['id2']))
+  $id2=$_GET['id2'];
+
 	$res = $con->delete($id,$table);
+
 	if($res){
-		header("location: index.php?action=$table");
+    if ($id2!=''){
+      header("location: index.php?action=".substr($table, 0, -1)."&id=$id2");
+    }else{
+		header("location: index.php?action=".substr($table, 0, -1)."&id=$id");
+    }
 	}else{
 		echo "Error al eliminar el registro";
 	}
-
-}
 ?>
