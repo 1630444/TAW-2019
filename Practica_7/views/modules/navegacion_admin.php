@@ -14,4 +14,7 @@
   <li>
     <a class="waves-effect" href="index.php?action=grupo"><i class="menu-icon fa fa-navicon"></i><span>Grupos</span></a>
   </li>
+  <li>
+    <a class="waves-effect" href="index.php?action=tutoria"><i class="menu-icon fa fa-bookmark"></i><span>Tutorias</span></a>
+  </li>
 </ul>

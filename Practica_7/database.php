@@ -215,6 +215,45 @@
 			}
 		}
     
+    // Funcion que agrega un registro a la tabla
+		public function createAluTut($id_alumno, $id_tutoria){
+			// Se delcara la consulta
+			$stmt = $this->con->prepare("INSERT INTO `alumnos-tutorias` (id_alumno,id_tutoria) VALUES ($id_alumno,$id_tutoria)");
+			// Se carga el resultado de la consulta 
+			$stmt->execute();
+			if($stmt){
+				return true;
+			}else{
+				return false;
+			}
+		}
+    
+    // Funcion que agrega un registro a la tabla
+		public function createTutoria($fecha,$hora,$tipo,$tema,$id_maestro){
+			// Se delcara la consulta
+			$stmt = $this->con->prepare("INSERT INTO `tutorias` (fecha,hora,tipo,tema,id_maestro) VALUES ('$fecha','$hora','$tipo','$tema',$id_maestro)");
+			// Se carga el resultado de la consulta 
+			$stmt->execute();
+			if($stmt){
+				return true;
+			}else{
+				return false;
+			}
+		}
+
+		// Funcion que actualiza los datos de un registro
+		public function updateTutoria($id, $fecha,$hora,$tipo,$tema,$id_maestro){
+			// Se delcara la consulta
+			$stmt = $this->con->prepare("UPDATE `tutorias` SET fecha='$fecha', hora='$hora', tipo='$tipo', tema='$tema' id_maestro=$id_maestro WHERE id=$id");
+			// Se ejecuta la consulta 
+			$stmt->execute();
+			if($stmt){
+				return true;
+			}else{
+				return false;
+			}
+		}
+    
 		public function delete($id,$table){
 			// Se delcara la consulta
 			$stmt = $this->con->prepare("DELETE FROM `$table` WHERE id=$id");
