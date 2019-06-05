@@ -6,12 +6,12 @@ if (isset($_GET['id'])) {
     $id = intval($_GET['id']);
 } else {
     // si no se regresa al index
-    header("location:index.php?action=materia");
+    header("location:index.php?action=tutoria");
 }
 ?>
 <div class="col-xs-12">
     <div class="box-content">
-        <h4 class="box-title" style="margin-left: auto; margin-right: auto; font-size:25px; text-align: center;">Modificar Materia</h4>
+        <h4 class="box-title" style="margin-left: auto; margin-right: auto; font-size:25px; text-align: center;">Modificar Tutoria</h4>
         <hr>
         <!--/// Todo el contenido del recuadro ////-->
 
@@ -20,10 +20,13 @@ if (isset($_GET['id'])) {
         $con = new Database();
         if (isset($_POST) && !empty($_POST)) {
             // Se pasan las entradas a las variables correspondientes
-            $nombre = $_POST['nombre'];
+            $fecha = $_POST['fecha'];
+            $hora = $_POST['hora'];
+            $tipo = $_POST['tipo'];
+            $tema = $_POST['tema'];
             $id_maestro = $_POST['id_maestro'];
             //Se crea el registro en la base de datos
-            $res = $con->updateMateria($id, $nombre, $id_maestro);
+            $res = $con->updateTutoria($id,$fecha,$hora,$tipo,$tema,$id_maestro);
             if ($res) {
                 $message = "Datos actualizados con éxito";
                 $class = "alert alert-success";
@@ -38,7 +41,7 @@ if (isset($_GET['id'])) {
             </div>
         <?php
     }
-    $datos = $con->single($id, 'materias');
+    $datos = $con->single($id, 'tutorias');
     ?>
         <div class="row">
             <form method="post">
@@ -51,10 +54,32 @@ if (isset($_GET['id'])) {
                     <input type="number" class='form-control' maxlength="11" value="<?php echo $datos->id; ?>" disabled>
                 </div>
               
-                <!-- Campo Nombre -->
+                <!-- Campo Fecha -->
                 <div class="col-md-6">
-                    <label>Nombre:</label>
-                    <input type="text" name="nombre" id="nombre" class='form-control' maxlength="30" value="<?php echo $datos->nombre; ?>" required>
+                    <label>Fecha:</label>
+                    <input type="date" name="fecha" id="fecha" class='form-control' value="<?php echo $datos->fecha; ?>" required>
+                </div>
+              
+                <!-- Campo Hora -->
+                <div class="col-md-6">
+                    <label>Hora:</label>
+                    <input type="time" name="hora" id="hora" class='form-control' value="<?php echo $datos->hora; ?>" required>
+                </div>
+              
+                <!-- Campo Tipo -->
+                <div class="col-md-6">
+                    <label>Tipo:</label>
+                    <select name="tipo" id="tipo" class='form-control' required>
+                      <option value="" selected disabled hidden>Seleccione un tipo</option>
+                      <option value="individual" <?php if ($datos->tipo=='individual') echo 'selected'; ?> >Individual</option>
+                      <option value="grupal" <?php if ($datos->tipo=='grupal') echo 'selected'; ?> >Grupal</option>
+                    </select>
+                </div>
+              
+                <!-- Campo Tema -->
+                <div class="col-md-6">
+                    <label>Tema:</label>
+                    <input type="text" name="tema" id="tema" class='form-control' maxlength="50" value="<?php echo $datos->tema; ?>" required>
                 </div>
               
               <!-- Campo Maestro -->

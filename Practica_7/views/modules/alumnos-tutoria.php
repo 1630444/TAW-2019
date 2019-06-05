@@ -6,20 +6,20 @@ if (isset($_GET['id'])) {
     $id = intval($_GET['id']);
 } else {
     // si no se regresa al index
-    header("location:index.php?action=materia");
+    header("location:index.php?action=tutorias");
 }
 ?>
 <div class="col-xs-12">
     <div class="box-content">
-        <h4 class="box-title" style="margin-left: auto; margin-right: auto; font-size:25px; text-align: center;">CARGA DE MATERIA</h4>
+        <h4 class="box-title" style="margin-left: auto; margin-right: auto; font-size:25px; text-align: center;">CARGA DE TUTORIA</h4>
         <hr>
         <!--/// Todo el contenido del recuadro ////-->
 
         <?php
         // Se instancia la clase de la Base de datos
         $con = new Database();
-        $datos = $con->single($id, 'materias');
-      echo "<h3>$datos->nombre</h3>";
+        $datos = $con->single($id, 'tutorias');
+      echo "<h3>$datos->fecha | $datos->hora | $datos->tema</h3>";
       ?>
       
       <?php
@@ -27,7 +27,7 @@ if (isset($_GET['id'])) {
             // Se pasan las entradas a las variables correspondientes
             $id_alumno = $_POST['id_alumno'];
             //Se crea el registro en la base de datos
-            $res = $con->createAluMat($id, $id_alumno);
+            $res = $con->createAluTut($id_alumno, $id);
             if ($res) {
                 $message = "Datos actualizados con éxito";
                 $class = "alert alert-success";
@@ -114,7 +114,7 @@ if (isset($_GET['id'])) {
             // Se instancia la clase de la Base de datos
             $con = new Database();
             // Se llama a la funcion que regresa los registros de la tabla 
-            $list = $con->readSpecial("SELECT * FROM `alumnos-materias` WHERE id_materia = $id");
+            $list = $con->readSpecial("SELECT * FROM `alumnos-tutorias` WHERE id_tutoria = $id");
             while ($r = $list->fetch(PDO::FETCH_OBJ)) {
               $listado = $con->readSpecial("SELECT * FROM alumnos WHERE id = $r->id_alumno");
             ?>
@@ -138,7 +138,7 @@ if (isset($_GET['id'])) {
                             <!--Botón para eliminar el registro-->
                             <a class="btn btn-danger waves-effect waves-light" title="Eliminar" data-toggle="tooltip" onclick="
                                             if(confirm('¿Seguro que desea eliminar este registro?')){
-                                                document.location.href = 'index.php?action=delete&id=<?php echo $r->id; ?>&table=alumnos-materias&id2=<?php echo $id; ?>'
+                                                document.location.href = 'index.php?action=delete&id=<?php echo $r->id; ?>&table=alumnos-tutorias&id2=<?php echo $id; ?>'
                                             }"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>

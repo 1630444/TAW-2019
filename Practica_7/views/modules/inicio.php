@@ -7,6 +7,7 @@
         <!--/// Todo el contenido del recuadro ///-->
 
         <h5>Bienvenido al Gestor de grupos, seleccione un apartado del menú para empezar a trabajar.</h5>
+        <img src="views/multimedia/school.jpg" sizes="(min-width: 600px) 200px, 50vw">
 
     </div>
     <!-- /.box-content -->

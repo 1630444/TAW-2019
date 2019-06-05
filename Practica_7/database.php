@@ -244,7 +244,7 @@
 		// Funcion que actualiza los datos de un registro
 		public function updateTutoria($id, $fecha,$hora,$tipo,$tema,$id_maestro){
 			// Se delcara la consulta
-			$stmt = $this->con->prepare("UPDATE `tutorias` SET fecha='$fecha', hora='$hora', tipo='$tipo', tema='$tema' id_maestro=$id_maestro WHERE id=$id");
+			$stmt = $this->con->prepare("UPDATE `tutorias` SET fecha='$fecha', hora='$hora', tipo='$tipo', tema='$tema', id_maestro=$id_maestro WHERE id=$id");
 			// Se ejecuta la consulta 
 			$stmt->execute();
 			if($stmt){
